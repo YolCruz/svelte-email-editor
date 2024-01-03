@@ -27,40 +27,50 @@
       <button on:click={() => selectedBlockId.set(null)}>Done</button>
     </div>
   {:else}
-    <div class="tw-flex tw-flex-col tw-gap-4">
+    <div class="tw-flex tw-flex-col tw-gap-4 tw-select-none">
       <div class="tw-flex tw-flex-col tw-gap-1">
-        <h1 class="tw-font-medium tw-text-lg">Content</h1>
+        <h1 class="tw-font-bold tw-text-lg">Content</h1>
         <div class="tw-border-t tw-border-gray-300 tw-pt-2">
           <button
             id="h1"
             draggable="true"
             on:dragstart={drag}
-            on:dragend|preventDefault={dragEnd}>Header</button
+            on:dragend|preventDefault={dragEnd}
           >
+            Header
+          </button>
           <button
             id="p"
             draggable="true"
             on:dragstart={drag}
-            on:dragend|preventDefault={dragEnd}>Text</button
+            on:dragend|preventDefault={dragEnd}
           >
+            Text
+          </button>
           <!-- Add more buttons as needed -->
         </div>
       </div>
       <div>
-        <h1 class="tw-font-medium tw-text-lg">Blocks</h1>
-        <div class="tw-border-t tw-border-gray-300 tw-pt-2">
+        <h1 class="tw-font-bold tw-text-lg">Blocks</h1>
+        <div class="tw-border-t tw-border-gray-300 tw-pt-2 tw-flex tw-gap-2">
           <button
-            id="h1"
+            id="1_section"
             draggable="true"
             on:dragstart={drag}
-            on:dragend|preventDefault={dragEnd}>Header</button
+            on:dragend|preventDefault={dragEnd}
+            class="tw-p-1 tw-border tw-border-black tw-rounded-lg"
           >
+            Section 1 column
+          </button>
           <button
-            id="p"
+            id="2_sections"
             draggable="true"
             on:dragstart={drag}
-            on:dragend|preventDefault={dragEnd}>Text</button
+            on:dragend|preventDefault={dragEnd}
+            class="tw-p-1 tw-border tw-border-black tw-rounded-lg"
           >
+            Section 2 columns
+          </button>
           <!-- Add more buttons as needed -->
         </div>
       </div>

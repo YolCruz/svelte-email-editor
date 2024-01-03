@@ -1,0 +1,28 @@
+{
+  "preview": "my amazing email",
+  "content": [
+    {
+      "type": "section",
+      "columns": 1,
+      "parentId": "section-1",
+      "children": [
+        {
+          "type": "img",
+          "src": "https://via.placeholder.com/150",
+          "alt": "placeholder",
+          "styles": {
+            "width": "150px",
+            "height": "150px"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Hello World",
+          "styles": {
+            "color": "red"
+          }
+        }
+      ]
+    }
+  ]
+}

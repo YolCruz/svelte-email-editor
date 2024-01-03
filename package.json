@@ -24,6 +24,8 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
-    "dompurify": "^3.0.6"
+    "dompurify": "^3.0.6",
+    "grapesjs": "^0.21.8",
+    "svelte-email": "^0.0.4"
   }
 }
