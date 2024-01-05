@@ -1,15 +1,30 @@
 <script lang="ts">
-  import { selectedBlockId, isDraggingElement } from "@store";
+  import {
+    isDraggingContent,
+    isDraggingBlock,
+    dragOverTargetId,
+    dragOverTargetDirection,
+  } from "@store/drag";
+  import { selectedBlockId } from "@store/body";
 
   function drag(ev: DragEvent) {
     const target = ev.target as HTMLButtonElement;
-    ev.dataTransfer?.setData("component-type", target.id);
+    const type = target.getAttribute("data-type");
+    const value = target.getAttribute("data-value");
 
-    isDraggingElement.set(true);
+    if (type && value) {
+      ev.dataTransfer?.setData("component-type", type);
+      ev.dataTransfer?.setData("component-value", value);
+
+      type === "row" ? isDraggingBlock.set(true) : isDraggingContent.set(true);
+    }
   }
 
   function dragEnd() {
-    isDraggingElement.set(false);
+    isDraggingContent.set(false);
+    isDraggingBlock.set(false);
+    dragOverTargetId.set("");
+    dragOverTargetDirection.set(null)
   }
 </script>
 
@@ -32,7 +47,8 @@
         <h1 class="tw-font-bold tw-text-lg">Content</h1>
         <div class="tw-border-t tw-border-gray-300 tw-pt-2">
           <button
-            id="h1"
+            data-type="content"
+            data-value="header"
             draggable="true"
             on:dragstart={drag}
             on:dragend|preventDefault={dragEnd}
@@ -40,7 +56,8 @@
             Header
           </button>
           <button
-            id="p"
+            data-type="content"
+            data-value="text"
             draggable="true"
             on:dragstart={drag}
             on:dragend|preventDefault={dragEnd}
@@ -51,25 +68,27 @@
         </div>
       </div>
       <div>
-        <h1 class="tw-font-bold tw-text-lg">Blocks</h1>
+        <h1 class="tw-font-bold tw-text-lg">Rows</h1>
         <div class="tw-border-t tw-border-gray-300 tw-pt-2 tw-flex tw-gap-2">
           <button
-            id="1_section"
+            data-type="row"
+            data-value="1_section"
             draggable="true"
             on:dragstart={drag}
             on:dragend|preventDefault={dragEnd}
             class="tw-p-1 tw-border tw-border-black tw-rounded-lg"
           >
-            Section 1 column
+            1 column
           </button>
           <button
-            id="2_sections"
+            data-type="row"
+            data-value="2_sections"
             draggable="true"
             on:dragstart={drag}
             on:dragend|preventDefault={dragEnd}
             class="tw-p-1 tw-border tw-border-black tw-rounded-lg"
           >
-            Section 2 columns
+            2 columns
           </button>
           <!-- Add more buttons as needed -->
         </div>

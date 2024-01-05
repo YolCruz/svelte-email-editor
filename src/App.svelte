@@ -1,44 +1,34 @@
 <script lang="ts">
   import Sidepanel from "@ui/sidepanel.svelte";
-  import { sections } from "@store";
-  import ComponentLayout from "@src/layout/componentLayout.svelte";
-  import SectionComp from "@src/components/sectionComp.svelte"
+  import { rows } from "@store/body";
+  import Row from "@src/layouts/rows.svelte";
+  import { dragOverTargetId } from "@store/drag";
 
   function allowDrop(ev: DragEvent) {
     ev.preventDefault();
   }
 
-  function initialDrop(ev: DragEvent) {
-    const componentType = ev.dataTransfer?.getData("component-type");
-    console.log(componentType);
-    if (componentType) {
-      sections.addBlock(componentType, 0, `${componentType}-1`);
-    }
-  }
-
+  $: console.log($rows)
 </script>
 
 <div class="tw-m-2 md:tw-m-12">
   <div
-    class="tw-flex tw-m-3 tw-flex-col md:tw-flex-row tw-gap-2"
+    class="tw-flex tw-mx-3 tw-my-5 tw-flex-col md:tw-flex-row tw-gap-2"
     role="application"
   >
     <div
       role="document"
-      class="tw-border tw-border-solid tw-border-black md:tw-w-3/4 tw-min-h-[13rem] tw-bg-[#E7E7E7]"
+      class=" md:tw-w-3/4 tw-min-h-[13rem] tw-bg-[#E7E7E7]"
       on:dragover={allowDrop}
     >
-      <div class="tw-w-96 tw-mx-auto">
-        {#each $sections as { component, type, id } (id)}
-          <ComponentLayout>
-            <svelte:component this={component} slot="content" />
-          </ComponentLayout>
-        {:else}
-          <SectionComp />
+      <div class="tw-w-full">
+        {#each $rows as { id: rowId, widths, columns }, index (`row-${rowId}`)}
+          <Row {rowId} {widths} {columns} position={index} />
         {/each}
       </div>
     </div>
 
     <Sidepanel />
+    <p>Selected: {$dragOverTargetId}</p>
   </div>
 </div>
