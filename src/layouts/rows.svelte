@@ -11,9 +11,6 @@
 
   $: sizes = widths.map((val) => `${val}%`).join(" ");
 
-  function sectionClick() {
-    console.log("section clicked");
-  }
   function drop(ev: DragEvent, target: "up" | "down") {
     ev.preventDefault();
     const type = ev.dataTransfer?.getData("component-type");
@@ -25,19 +22,19 @@
   }
 </script>
 
-<button
-  class={"tw-w-full tw-outline hover:tw-outline-blue-200 -tw-outline-offset-1 tw-z-10 " +
-    ($isDraggingBlock ? "tw-outline-gray-300" : " tw-outline-none")}
-  on:click={sectionClick}
+<DragAreas
+  id={rowId}
+  isDragging={$isDraggingBlock}
+  dropHandler={drop}
+  showArea={$isDraggingBlock}
+  name="Row"
 >
-  <DragAreas id={rowId} isDragging={$isDraggingBlock} dropHandler={drop}>
-    <div
-      class="tw-w-10/12 tw-mx-auto tw-grid"
-      style={`grid-template-columns: ${sizes};`}
-    >
-      {#each columns as { id: columnId, children } (columnId)}
-        <Column {rowId} {columnId} {children} />
-      {/each}
-    </div>
-  </DragAreas>
-</button>
+  <div
+    class="tw-w-10/12 tw-mx-auto tw-grid"
+    style={`grid-template-columns: ${sizes};`}
+  >
+    {#each columns as { id: columnId, children } (columnId)}
+      <Column {rowId} {columnId} {children} />
+    {/each}
+  </div>
+</DragAreas>

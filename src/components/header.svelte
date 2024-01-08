@@ -1,7 +1,7 @@
 <script lang="ts">
   import { writable } from "svelte/store";
   import DOMPurify from "dompurify";
-  import { selectedBlockId, rows } from "@store/body";
+  import { selectedChildId, rows } from "@store/body";
 
   export let rowId: string;
   export let columnId: string;
@@ -11,7 +11,7 @@
   const _text = writable(text);
 
   const blockClick = (ev: MouseEvent) => {
-    selectedBlockId.set(childId);
+    selectedChildId.set(childId);
   };
 
   const handleInput = (ev: Event) => {

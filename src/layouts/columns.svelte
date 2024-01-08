@@ -10,9 +10,9 @@
 
 <div class="tw-w-full">
   {#each children as child, index (child.id)}
-    <Content {rowId} {columnId} childId={child.id} position={index}>
+    <Content {rowId} {columnId} childId={child.id} position={index} childType={child.type}>
       {#if child.type === "text"}
-        <Text {rowId} {columnId} childId={child.id} text={child.text} />
+        <Text {rowId} {columnId} childId={child.id} text={child.text} styles={child.styles} />
       {:else if child.type === "header"}
         <Header {rowId} {columnId} childId={child.id} text={child.text} />
       {:else if child.type === "image"}

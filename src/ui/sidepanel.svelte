@@ -5,7 +5,8 @@
     dragOverTargetId,
     dragOverTargetDirection,
   } from "@store/drag";
-  import { selectedBlockId } from "@store/body";
+  import { selectedChildId } from "@store/body";
+  import EditPanel from "./editPanel.svelte";
 
   function drag(ev: DragEvent) {
     const target = ev.target as HTMLButtonElement;
@@ -29,18 +30,8 @@
 </script>
 
 <div class="tw-p-3 tw-border tw-solid tw-border-black">
-  {#if $selectedBlockId}
-    <div class="tw-grid tw-grid-cols-2 gap-3">
-      <label for="padding">Padding:</label>
-      <input name="padding" type="number" />
-      <label for="margin">Margin:</label>
-      <input name="margin" type="number" />
-      <label for="background color">Background Color:</label>
-      <input name="background color" type="color" />
-      <label for="text color">Text Color:</label>
-      <input name="text color" type="color" />
-      <button on:click={() => selectedBlockId.set(null)}>Done</button>
-    </div>
+  {#if $selectedChildId}
+    <EditPanel />
   {:else}
     <div class="tw-flex tw-flex-col tw-gap-4 tw-select-none">
       <div class="tw-flex tw-flex-col tw-gap-1">

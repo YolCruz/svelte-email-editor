@@ -1,17 +1,20 @@
 <script lang="ts">
   import { writable } from "svelte/store";
   import DOMPurify from "dompurify";
-  import { selectedBlockId, rows } from "@store/body";
+  import { selectedChildId, rows } from "@store/body";
 
   export let rowId: string;
   export let columnId: string;
   export let childId: string;
   export let text: string;
+  export let styles: Styles;
 
   const _text = writable(text);
 
+  $: padding = styles.padding.map((p) => `${p}px`).join(" ");
+
   const blockClick = (ev: MouseEvent) => {
-    selectedBlockId.set(childId);
+    selectedChildId.set(childId);
   };
 
   const handleInput = (ev: Event) => {
@@ -24,10 +27,10 @@
 
 <button
   on:click={blockClick}
-  class="tw-w-full tw-cursor-text tw-text-left tw-p-2"
+  class="tw-w-full tw-cursor-text tw-text-left"
+  style={`padding: ${padding};`}
 >
   <p
-    bind:innerHTML={text}
     contenteditable="true"
     class="focus:tw-outline-none tw-m-0"
     on:input={handleInput}

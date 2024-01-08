@@ -1,12 +1,19 @@
 <script lang="ts">
   import DragAreas from "./dragAreas.svelte";
-  import { rows } from "@store/body";
+  import {
+    rows,
+    selectedRowId,
+    selectedColumnId,
+    selectedChildId,
+    selectedChildType,
+  } from "@store/body";
   import { isDraggingContent } from "@store/drag";
   import { generateRandomSequence, ID_LENGTH } from "@src/helpers";
 
   export let rowId: string;
   export let columnId: string;
   export let childId: string | undefined = undefined;
+  export let childType: BlockType | undefined = undefined;
   export let position: number;
   export let isInitial = false;
 
@@ -22,7 +29,10 @@
             id: generateRandomSequence(ID_LENGTH),
             type: "text",
             text: "New text",
-            styles: {},
+            styles: {
+              padding: [10, 10, 10, 10],
+              margin: [0, 0, 0, 0],
+            },
           } satisfies TextBlock;
           break;
         case "header":
@@ -30,7 +40,10 @@
             id: generateRandomSequence(ID_LENGTH),
             type: "header",
             text: "New header",
-            styles: {},
+            styles: {
+              padding: [10, 10, 10, 10],
+              margin: [0, 0, 0, 0],
+            },
           } satisfies HeaderBlock;
           break;
         case "image":
@@ -39,7 +52,10 @@
             type: "image",
             src: "",
             alt: "",
-            styles: {},
+            styles: {
+              padding: [10, 10, 10, 10],
+              margin: [0, 0, 0, 0],
+            },
           } satisfies ImageBlock;
           break;
         default:
@@ -47,7 +63,10 @@
             id: generateRandomSequence(ID_LENGTH),
             type: "text",
             text: "New text",
-            styles: {},
+            styles: {
+              padding: [10, 10, 10, 10],
+              margin: [0, 0, 0, 0],
+            },
           } satisfies TextBlock;
           break;
       }
@@ -59,6 +78,15 @@
       );
     }
   }
+
+  function selectBlock() {
+    if (childId && childType) {
+      selectedRowId.set(rowId);
+      selectedColumnId.set(columnId);
+      selectedChildId.set(childId);
+      selectedChildType.set(childType);
+    }
+  }
 </script>
 
 <DragAreas
@@ -66,6 +94,9 @@
   isDragging={$isDraggingContent}
   dropHandler={drop}
   {isInitial}
+  name="Content"
 >
-  <slot />
+  <button class="tw-w-full" on:click={selectBlock}>
+    <slot />
+  </button>
 </DragAreas>

@@ -8,7 +8,6 @@
     ev.preventDefault();
   }
 
-  $: console.log($rows)
 </script>
 
 <div class="tw-m-2 md:tw-m-12">
@@ -21,11 +20,9 @@
       class=" md:tw-w-3/4 tw-min-h-[13rem] tw-bg-[#E7E7E7]"
       on:dragover={allowDrop}
     >
-      <div class="tw-w-full">
         {#each $rows as { id: rowId, widths, columns }, index (`row-${rowId}`)}
           <Row {rowId} {widths} {columns} position={index} />
         {/each}
-      </div>
     </div>
 
     <Sidepanel />

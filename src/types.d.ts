@@ -2,9 +2,14 @@ interface EmailBody {
   rows: EmailRow[];
 }
 
+interface Styles {
+  padding: [number, number, number, number];
+  margin: [number, number, number, number];
+}
+
 interface Cell {
   id: string;
-  styles: any;
+  styles: Styles;
 }
 
 interface EmailRow extends Cell {
@@ -23,7 +28,7 @@ type Children = ImageBlock | TextBlock | HeaderBlock;
 interface Block {
   id: string;
   type: BlockType;
-  styles: any;
+  styles: Styles;
 }
 
 interface ImageBlock extends Block {

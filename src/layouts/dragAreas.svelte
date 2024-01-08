@@ -6,16 +6,20 @@
   export let isDragging: boolean;
   export let dropHandler: (ev: DragEvent, target: "up" | "down") => void;
   export let isInitial = false;
+  export let name: string;
+  export let extraClasses = "";
+  export let showArea = false;
 
   const childIsTarget = derived(
     dragOverTargetId,
     ($dragOverTargetId) => $dragOverTargetId === id
   );
 
+  $: outlineArea = showArea ? "tw-outline-gray-300" : "tw-outline-transparent";
 </script>
 
 <div
-  class="tw-relative tw-w-full"
+  class={`tw-w-full ${outlineArea} tw-relative tw-outline -tw-outline-offset-1 ${extraClasses} hover:tw-outline-blue-200`}
   role="none"
   on:dragenter={() => isDragging && dragOverTargetId.set(id)}
 >
@@ -42,6 +46,7 @@
       </p>
     </div>
   </div>
+  <!-- -->
   <slot />
   <!-- Lower drag area -->
   <div
@@ -64,4 +69,5 @@
       </p>
     </div>
   </div>
+  <!-- -->
 </div>
