@@ -7,25 +7,22 @@
   function allowDrop(ev: DragEvent) {
     ev.preventDefault();
   }
-
 </script>
 
-<div class="tw-m-2 md:tw-m-12">
+<div
+  class="tw-flex tw-mx-3 tw-my-5 tw-flex-col md:tw-flex-row tw-gap-2 md:tw-m-12"
+  role="application"
+>
   <div
-    class="tw-flex tw-mx-3 tw-my-5 tw-flex-col md:tw-flex-row tw-gap-2"
-    role="application"
+    role="document"
+    class=" md:tw-w-3/4 tw-min-h-[13rem] tw-bg-[#E7E7E7]"
+    on:dragover={allowDrop}
   >
-    <div
-      role="document"
-      class=" md:tw-w-3/4 tw-min-h-[13rem] tw-bg-[#E7E7E7]"
-      on:dragover={allowDrop}
-    >
-        {#each $rows as { id: rowId, widths, columns }, index (`row-${rowId}`)}
-          <Row {rowId} {widths} {columns} position={index} />
-        {/each}
-    </div>
-
-    <Sidepanel />
-    <p>Selected: {$dragOverTargetId}</p>
+    {#each $rows as { id: rowId, widths, columns }, index (`row-${rowId}`)}
+      <Row {rowId} {widths} {columns} position={index} />
+    {/each}
   </div>
+
+  <Sidepanel />
+  <p>Selected: {$dragOverTargetId}</p>
 </div>
